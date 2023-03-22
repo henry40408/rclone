@@ -10,4 +10,4 @@ ENV SOURCE_PATH=""
 ENV DEST_PATH=""
 ENV HEALTHCHECKS_URL=""
 
-CMD ["./run.sh"]
+ENTRYPOINT ["./run.sh"]
