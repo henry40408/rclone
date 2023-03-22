@@ -13,5 +13,5 @@ healthchecks_url="${HEALTHCHECKS_URL-}"
 curl -fsS -m 10 --retry 5 "${healthchecks_url}/start?rid=$rid"
 
 # Sync the source and destination using rclone
-rclone sync "$source_path" "$dest_path"
-curl -fsS -m 10 --retry 5 "${healthchecks_url}/$??rid=$rid"
+m="$(rclone sync -P "$source_path" "$dest_path" 2>&1)"
+curl -fsS -m 10 --retry 5 --data-raw "$m" "${healthchecks_url}/$??rid=$rid"
