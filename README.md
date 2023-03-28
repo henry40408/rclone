@@ -31,10 +31,14 @@ Note that in addition to tagged releases, this Docker image is also automaticall
 To use the `rclone` Docker image, you can start a container using the `docker run` command and pass in the required environment variables:
 
 ```
-docker run -e SOURCE_PATH="source:/path/to/source" -e DEST_PATH="dest:/path/to/destination" -e HEALTHCHECKS_URL="https://hc-ping.com/your_healthchecks_uuid" ghcr.io/henry40408/rclone
+docker run -v $PWD/rclone.conf:/config/rclone/rclone.conf \
+  -e SOURCE_PATH="source:/path/to/source" \
+  -e DEST_PATH="dest:/path/to/destination" \
+  -e HEALTHCHECKS_URL="https://hc-ping.com/your_healthchecks_uuid" \
+  ghcr.io/henry40408/rclone
 ```
 
-This will synchronize files between the specified source and destination paths using `rclone sync`, and send an HTTP request to the specified Healthchecks endpoint with the execution time and result of the sync operation.
+The configuration file should be mounted as `/config/rclone/rclone.conf`, which is required by the `rclone/rclone` base image. This will synchronize files between the specified source and destination paths using `rclone sync`, and send an HTTP request to the specified Healthchecks endpoint with the execution time and result of the sync operation.
 
 ## Environment Variables
 
